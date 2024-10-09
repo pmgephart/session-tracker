@@ -1,8 +1,16 @@
+/**
+ * Session Tracker App
+ * 
+ * @author Patrick Gephart
+ * @email pmgephart@gmail.com
+ * @url https://abovethecrux.com
+ */
+
 import localFont from "next/font/local";
 import "../app/globals.css";
 
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const geistSans = localFont({
   src: "../app/fonts/GeistVF.woff",

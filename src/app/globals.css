@@ -1,11 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind forms;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+}
+
+@layer base {
+  @font-face {
+    font-family: ;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
