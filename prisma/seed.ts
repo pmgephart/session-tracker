@@ -1,3 +1,11 @@
+/**
+ * relevant commands
+ * 
+ * npx prisma studio
+ * npx prisma db push
+ * npx prisma db seed
+ */
+
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -82,31 +90,22 @@ const sessions = [
 		workouts: {
 			create: [
 				{
-					workout: {
-						create: {
-							description: "Completed all sets and felt strong. 15/20/25/25/25/25",
-							sets: 6,
-							weight: 25,
-							activity: {
-								connect: {
-									id: 1
-								}
-							}
+					description: "Completed all sets and felt strong. 15/20/25/25/25/25",
+					sets: 6,
+					weight: 25,
+					activity: {
+						connect: {
+							id: 1
 						}
-						
 					}
 				},
 				{
-					workout: {
-						create: {
-							description: "RDL with warm up set 1",
-							sets: 4,
-							weight: 115,
-							activity: {
-								connect: {
-									id: 9
-								}
-							}
+					description: "RDL with warm up set 1",
+					sets: 4,
+					weight: 115,
+					activity: {
+						connect: {
+							id: 9
 						}
 					}
 				}
@@ -118,7 +117,6 @@ const sessions = [
 			}
 		}
 	},
-	/*
 	{
 		name: "Movement bouldering session",
 		description: "Hangboard warm up then tension board climbing up to V4 @40 degrees",
@@ -127,7 +125,7 @@ const sessions = [
 			create: [
 				{
 					description: "completed up to 40 degrees V4",
-					duration: 2,
+					duration: "2 hours",
 					activity: {
 						connect: {
 							id: 19
@@ -150,7 +148,7 @@ const sessions = [
 			create: [
 				{
 					description: "sent one 5.21-",
-					duration: 3,
+					duration: "3 hours",
 					activity: {
 						connect: {
 							id: 15
@@ -165,13 +163,12 @@ const sessions = [
 			}
 		}
 	}
-	*/
 ];
 
 async function seedData() {
 	console.log("Seeding Session Tracker database...\n");
 
-	/** users create
+	/** users create **/
 
 	await prisma.user.deleteMany();
 
@@ -181,9 +178,7 @@ async function seedData() {
 		console.log(`Created user with id: ${result.id}`);
 	}
 
-	**/
-
-	/** activities create
+	/** activities create **/
 
 	await prisma.activity.deleteMany();
 
@@ -193,17 +188,9 @@ async function seedData() {
 		console.log(`Created activity with id: ${result.id}`);
 	}
 
-	**/
-
-	const currentActivities = await prisma.activity.findMany();
-
-	console.log(currentActivities);
-
-	await prisma.session.deleteMany();
+	/** sessions create **/
 
 	for(const session of sessions) {
-		console.log(session);
-
 		const result = await prisma.session.create({ data: session });
 
 		console.log(`Created session with id: ${result.id}`);
