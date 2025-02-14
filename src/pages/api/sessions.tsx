@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from '../../util/db';
+import { prisma } from '@/util/db';
 
 type ResponseData = {
 	error: boolean,

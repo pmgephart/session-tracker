@@ -7,7 +7,7 @@
  */
 
 import {
-	React,
+	react,
 	memo
 } from "react";
 

@@ -14,11 +14,9 @@ import {
 const Header = memo(() => {
   return (
     <>
-      <div className="grid items-center justify-items-center pt-5 font-[family-name:var(--font-geist-mono)]">
-        <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-            <p>send it...into this app</p> 
-        </main>
-      </div>
+      <footer className="st-footer pt-5 items-center justify-items-center text-center">
+        <a href="/dashboard">dashboard</a>
+      </footer>
     </>
   );
 });

@@ -5,6 +5,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --light: #e5e7eb;
+  --dark: #3987cb;
 }
 
 @layer base {
@@ -27,22 +29,43 @@ body {
 }
 
 h2 {
-  font-size: 30px;
-  font-weight:600;
-  text-align: center;
-  margin: 0 0 20px;
+  font-size: 26px;
+  font-weight: 600;
 }
 
-header.st-header {
-  text-align: center;
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.m-auto {
+  margin:0 auto;
+}
+
+header.st-header img {
+  margin: 0 auto;
 }
 
 header.st-header h2 {
-  margin-top: 20px;
+  margin-bottom: 0;
 }
 
-header.st-header .logo img {
-  margin: 0 auto;
+.st-session-item {
+  background: var(--light);
+  margin-bottom: 1em;
+}
+
+.st-session-item:last-child {
+  margin-bottom: 0;
+}
+
+.st-navigation a {
+  background: var(--light);
+}
+
+.st-navigation a:hover {
+  color: #ffffff;
+  background: var(--dark);
 }
 
 @layer utilities {
