@@ -6,11 +6,15 @@
  * @url https://abovethecrux.com
  */
 
-import localFont from "next/font/local";
-import "../app/globals.css";
+import { react, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-import Header from "./Header";
-import Footer from "./Footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
+
+import localFont from "next/font/local";
+import "@/app/globals.css";
 
 const geistSans = localFont({
   src: "../app/fonts/GeistVF.woff",
@@ -24,16 +28,33 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: Readonly<{children: React.ReactNode;}>) {
+  const router = useRouter();
+  const id = 1;
+  const [user, setUser] = useState({});
+
+  async function getUser(id: int) : {} {
+      const response = await fetch(`/api/user/${id}`);
+      const result = await response.json();
+
+      if(result.error) {
+          router.push("/login");
+      }
+
+      setUser(result.user);
+  }
+
+  useEffect(() => {
+      getUser(id);
+  }, [id]);
+
   return (
-    <>
-      <div className={`${geistSans.variable} ${geistMono.variable} antialiased font-[family-name:var(--font-geist-mono)]`}>
-        <Header />
-        <main className="pl-5 pr-5 pb-5 flex flex-col max-w-md items-center justify-items-center text-center m-auto">
-          {children}
-        </main>
-        <Footer />
-      </div>
-    </>
+    <div className={`${geistSans.variable} ${geistMono.variable} max-w-md m-auto antialiased font-[family-name:var(--font-geist-mono)]`}>
+      <Header user={user} />
+      <main className="pt-5 pr-5 pl-5 pb-[104px]">
+        {children}
+      </main>
+      <Footer />
+    </div>
   );
 }

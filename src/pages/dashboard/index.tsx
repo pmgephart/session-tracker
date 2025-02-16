@@ -1,10 +1,17 @@
+/**
+ * Session Tracker App
+ * 
+ * @author Patrick Gephart
+ * @email pmgephart@gmail.com
+ * @url https://abovethecrux.com
+ */
+
 "use client";
 
-import { react, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import Navigation from "@/components/Navigation";
-import Welcome from "@/components/Welcome";
+import Activities from "@/components/dashboard/Activities";
 import Sessions from "@/components/dashboard/Sessions";
 
 export default function Dashboard() {
@@ -28,9 +35,9 @@ export default function Dashboard() {
     }, [id]);
     
     return (
-        <>
-            <Navigation />
+        <div className="st-dashboard">
             <Sessions sessions={user.sessions} />
-        </>
+            <Activities />
+        </div>
     );
 }

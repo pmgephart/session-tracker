@@ -6,17 +6,27 @@
  * @url https://abovethecrux.com
  */
 
-import {
-	react,
-	memo
-} from "react";
+"use client";
 
-const Header = memo(() => {
+import Image from "next/image";
+import Link from "next/link";
+import { react, memo } from "react";
+
+const Header = memo(({ user }) => {
   return (
-    <header className="st-header p-5 flex flex-col max-w-md items-center justify-items-center text-center m-auto">
-      <div class="flex flex-row items-center">
-      	<img src="https://abovethecrux.com/wp-content/uploads/2023/08/above-the-crux-logo.png" alt="Session Tracker" width="100" />
-        <h2 className="pl-5" >Session Tracker</h2>
+    <header className="st-header border-b-4 border-solid border-black p-5">
+      <div className="flex items-center justify-center">
+        <div className="w-1/3">
+          <Link href="/">
+            <Image src="/images/above-the-crux-logo.png" alt="Session Tracker" width="80" height="65" />
+          </Link>
+        </div>
+        <div className="w-2/3 text-right">
+          <h2>Session Tracker</h2>
+          {user &&
+          <p className="text-sm">{user.firstName} {user.lastName}</p>
+          }
+        </div>
       </div>
     </header>
   );

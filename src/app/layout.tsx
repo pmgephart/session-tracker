@@ -16,18 +16,14 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-[family-name:var(--font-geist-mono)]`}>
         <Header />
-        {children}
+        <main className="pl-5 pr-5 pb-5 flex flex-col max-w-md items-center justify-items-center text-center m-auto">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

@@ -68,6 +68,25 @@ header.st-header h2 {
   background: var(--dark);
 }
 
+.st-action {
+  color: #ffffff;
+  background: var(--dark);
+}
+
+.st-action a:hover
+.st-action a:focus
+button.st-action:hover,
+button.st-action:focus {
+  color: var(--foreground);
+  background: var(--light);
+}
+
+.st-form input[type=date],
+.st-form input[type=text],
+.st-form textarea {
+  border: 1px solid var(--light);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
