@@ -68,17 +68,40 @@ header.st-header h2 {
   background: var(--dark);
 }
 
+.st-link {
+  color: #ffffff;
+  background: var(--dark);
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  display: block;
+  width: 100%;
+}
+
+.st-link:hover,
+.st-link:focus {
+  color: var(--foreground);
+  background: var(--light);
+}
+
 .st-action {
   color: #ffffff;
   background: var(--dark);
+  padding: 0.75rem;
+  border-radius: 0.25rem;
 }
 
-.st-action a:hover
-.st-action a:focus
-button.st-action:hover,
-button.st-action:focus {
+.st-action:hover,
+.st-action:focus {
   color: var(--foreground);
   background: var(--light);
+}
+
+.st-action * {
+  display: inline;
+}
+
+.st-action svg {
+  margin-left: 0.5rem;
 }
 
 .st-form input[type=date],

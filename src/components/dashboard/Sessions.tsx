@@ -16,8 +16,8 @@ const Sessions = ({ sessions }) => {
 	return (
 		<>
 			<div className="pb-5 mx-auto text-center">
-				<div className="st-action text-sm">
-					<Link href="/dashboard/session" className="rounded p-3 block">add session</Link>
+				<div className="text-sm">
+					<Link href="/dashboard/session" className="st-link">add session</Link>
 				</div>
 			</div>
 			<div className="rounded text-left border">
