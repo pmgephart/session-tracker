@@ -11,21 +11,35 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { FaPlusCircle } from "react-icons/fa";
+import { format } from "date-fns";
 
 import Form from "next/form";
-import { format } from "date-fns";
+import SessionForm from "@/components/session/form/SessionForm";
+
+const SESSION_INITIAL_STATE = {
+    id: 0,
+    name: '',
+    description: '',
+    date: '',
+    userId: 0,
+    workouts: []
+};
 
 export default function Session({ activities }) {
     const router = useRouter();
     const id = router.query.id;
-    const [session, setSession] = useState({
-        name: '',
-        description: '',
-        date: ''
-    });
 
-    function setData(event) : void {
-        setSession({ ...session, [event.target.id]: event.target.value });
+    const [error, setError] = useState('');
+    const [session, setSession] = useState(SESSION_INITIAL_STATE);
+
+    function handleChange(event) : void {
+        setSession({ ...session, [event.target.name]: event.target.value });
+    }
+
+    const handleSubmit = (event) : void => {
+        event.preventDefault();
+
+        
     }
 
     async function getSession(id: int) : {} {
@@ -36,51 +50,28 @@ export default function Session({ activities }) {
         const response = await fetch(`/api/session?id=${id}`);
         const result = await response.json();
 
-        if(result.error) {
-            router.push("/login");
+        if(result.session === null) {
+            setError("Session not found");
+            return;
         }
 
         setSession(result.session);
-    };
+    }
 
     useEffect(() => {
         getSession(id);
     }, [id]);
 
+    if(error) {
+        return (
+            <div className="text-center">
+                <p>{error}</p>
+            </div>
+        );
+    }
+
     return (
-        <Form action="/session/add" className="st-form">
-            <div className="rounded text-left border mb-5">
-                <main className="p-5 text-sm">
-                    <div className="w-full pb-5">
-                        <label htmlFor="date" className="block pb-2">Date</label>
-                        <input className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md" type="date" aria-label="Date" id="date" defaultValue={session.date ? format(session.date, "yyyy-MM-dd") : ''} onChange={setData} />
-                    </div>
-                    <div className="w-full pb-5">
-                        <label htmlFor="name" className="block pb-2">Name</label>
-                        <input className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md" type="text" id="name" value={session.name} onChange={setData} />
-                    </div>
-                    <div className="w-full">
-                        <label htmlFor="description" className="block pb-2">Description</label>
-                        <textarea className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md" id="description" value={session.description} onChange={setData}>
-                        </textarea>
-                    </div>
-                </main>
-            </div>
-            <div className="rounded text-left border mb-5">
-                <main className="p-5 text-sm">
-                    <div className="w-full pb-2">
-                        <label htmlFor="name" className="block pb-2">Workouts</label>
-                    </div>
-                    <button className="st-action">
-                        <span>add workout</span>
-                        <FaPlusCircle />
-                    </button>
-                </main>
-            </div>
-            <div>
-                <button type="submit" className="st-action w-full">save</button>
-            </div>
-        </Form>
+        <SessionForm session={session} activities={activities} handleChange={handleChange} handleSubmit={handleSubmit} key={session.id} />
     );
 }
 

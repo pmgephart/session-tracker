@@ -8,16 +8,21 @@
 
 "use client";
 
-import Link from "next/link";
 import { react, memo } from "react";
+import { FaPlusCircle } from "react-icons/fa";
 import { format } from "date-fns";
+
+import Link from "next/link";
 
 const Sessions = ({ sessions }) => {
 	return (
 		<>
 			<div className="pb-5 mx-auto text-center">
 				<div className="text-sm">
-					<Link href="/dashboard/session" className="st-link">add session</Link>
+					<Link href="/dashboard/session" className="st-link">
+						<span>add session</span>
+						<FaPlusCircle />
+					</Link>
 				</div>
 			</div>
 			<div className="rounded text-left border">

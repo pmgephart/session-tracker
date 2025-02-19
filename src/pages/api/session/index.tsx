@@ -31,19 +31,13 @@ export default async function handler (
 				}
 			});
 
-			if(!session) {
-				throw "Session does not exist";
-			}
-
 			return res.status(200).json({
-				message: "success",
 				session: session
 			});
 		}
 		catch(error) {
 			res.status(400).json({
-				message: error,
-				session: {}
+				session: null
 			});
 		}
 	}

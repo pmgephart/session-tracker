@@ -46,7 +46,7 @@ export default async function handler (
 		});
 	}
 	catch(error) {
-		res.status(400).json({
+		res.status(200).json({
 			error: true,
 			message: error,
 			user: {}
