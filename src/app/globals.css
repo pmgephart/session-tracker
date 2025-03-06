@@ -79,7 +79,7 @@ header.st-header h2 {
 }
 
 .st-link:hover,
-.st-link:focus {
+.st-link:active {
   color: var(--foreground);
   background: var(--light);
 }
@@ -92,7 +92,7 @@ header.st-header h2 {
 }
 
 .st-action:hover,
-.st-action:focus {
+.st-action:active {
   color: var(--foreground);
   background: var(--light);
 }
@@ -109,12 +109,14 @@ header.st-header h2 {
 
 .st-form input[type=date],
 .st-form input[type=text],
-.st-form textarea {
+.st-form textarea,
+.st-form select {
   border: 1px solid var(--light);
+  background: #F5F5F5;
 }
 
 .st-form .workout {
-  background: var(--light);
+  border: 1px solid var(--light);
 }
 
 @layer utilities {

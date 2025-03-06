@@ -14,11 +14,20 @@ import { useRouter } from "next/navigation";
 import Activities from "@/components/dashboard/Activities";
 import Sessions from "@/components/dashboard/Sessions";
 
-export default function Dashboard() {
-    const router = useRouter();
-    const id = 1;
-    const [user, setUser] = useState({});
+const USER_INITIAL_STATE = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    email: '',
+    active: false,
+    sessions: []
+};
 
+export default function Dashboard() {
+    const id = 1;
+    const [user, setUser] = useState(USER_INITIAL_STATE);
+    const router = useRouter();
+    
     async function getUser(id: int) : {} {
         const response = await fetch(`api/user/${id}`);
         const result = await response.json();

@@ -8,6 +8,7 @@
 
 import { react, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { ToastContainer } from "react-toastify";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -55,6 +56,7 @@ export default function Layout({ children }: Readonly<{children: React.ReactNode
         {children}
       </main>
       <Footer />
+      <ToastContainer />
     </div>
   );
 }

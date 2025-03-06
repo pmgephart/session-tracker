@@ -43,7 +43,9 @@ export default async function handler (
 	}
 
 	if(req.method === "POST") {
+		const update
 		try {
+
 			res.status(200).json({
 				session1: JSON.parse(req.body)
 			});

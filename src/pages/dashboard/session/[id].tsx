@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { FaPlusCircle } from "react-icons/fa";
 import { format } from "date-fns";
+import { toast } from "react-toastify";
 
 import Form from "next/form";
 import SessionForm from "@/components/session/form/SessionForm";
@@ -25,6 +26,16 @@ const SESSION_INITIAL_STATE = {
     workouts: []
 };
 
+const WORKOUT_INITIAL_STATE = {
+    id: 0,
+    activityId: '',
+    description: '',
+    sets: '',
+    reps: '',
+    weight: '',
+    duration: ''
+};
+
 export default function Session({ activities }) {
     const router = useRouter();
     const id = router.query.id;
@@ -32,14 +43,55 @@ export default function Session({ activities }) {
     const [error, setError] = useState('');
     const [session, setSession] = useState(SESSION_INITIAL_STATE);
 
-    function handleChange(event) : void {
-        setSession({ ...session, [event.target.name]: event.target.value });
+    function handleChange(event, field) : void {
+        setSession({ ...session, [field]: event.target.value });
     }
 
-    const handleSubmit = (event) : void => {
+    function handleWorkoutChange(event, index, field) : void {
+        let workouts = [...session.workouts];
+        let workout = {
+            ...workouts[index],
+            [field]: event.target.value
+        }
+
+        workouts[index] = workout;
+
+        setSession(prev => ({
+            ...session,
+            workouts: workouts
+        }));
+    }
+
+    function addWorkout(event) : void {
         event.preventDefault();
 
-        
+        setSession(prev => ({
+            ...session,
+            workouts: [...session.workouts, WORKOUT_INITIAL_STATE]
+        }));
+    }
+
+    function deleteWorkout(event, target) : void {
+        event.preventDefault();
+
+        const filtered = session.workouts.filter((item, index) => index !== target);
+
+        setSession(prev => ({
+            ...session,
+            workouts: filtered
+        }));
+    }
+
+    async function handleSubmit(event) : void {
+        event.preventDefault();
+
+        const response = await fetch(`/api/session`, {
+            method: "POST",
+            body: JSON.stringify(session)
+        });
+        const result = await response.json();
+
+        console.log(result);
     }
 
     async function getSession(id: int) : {} {
@@ -62,6 +114,12 @@ export default function Session({ activities }) {
         getSession(id);
     }, [id]);
 
+    function notify(event) {
+        event.preventDefault();
+
+        toast('this worked');
+    }
+
     if(error) {
         return (
             <div className="text-center">
@@ -71,7 +129,20 @@ export default function Session({ activities }) {
     }
 
     return (
-        <SessionForm session={session} activities={activities} handleChange={handleChange} handleSubmit={handleSubmit} key={session.id} />
+        <div>
+            <div>
+                <a href="#" onClick={notify}>test me</a>
+            </div>
+            <SessionForm
+                session={session}
+                activities={activities}
+                handleChange={handleChange}
+                handleWorkoutChange={handleWorkoutChange}
+                handleSubmit={handleSubmit}
+                addWorkout={addWorkout}
+                deleteWorkout={deleteWorkout}
+            />
+        </div>
     );
 }
 

@@ -9,7 +9,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { react, memo } from "react";
 
 const Header = memo(({ user }) => {

@@ -15,71 +15,52 @@ import { format } from "date-fns";
 import Form from "next/form";
 import WorkoutForm from "@/components/session/form/WorkoutForm";
 
-const SessionForm = ({ session, activities, handleChange, handleSubmit }) => {
-    const [workouts, setWorkouts] = useState([]);
-
-    useEffect(() => {
-        if(session.workouts.length) {
-            setWorkouts(session.workouts);
-        }
-    }, [session]);
-
-    function addWorkout(event) : void {
-        event.preventDefault();
-
-        setWorkouts([...workouts, {
-            id: workouts.length + 1,
-            activityId: null,
-            description: null,
-            sets: null,
-            reps: null,
-            weight: null,
-            duration: null
-        }]);
-    }
-
-    function deleteWorkout(event) : void {
-        e.preventDefault();
-    }
-
+const SessionForm = ({ session, activities, handleChange, handleWorkoutChange, handleSubmit, addWorkout, deleteWorkout }) => {
     return (
         <Form className="st-form" onSubmit={handleSubmit}>
             <div className="rounded text-left border mb-5">
                 <main className="p-5 text-sm">
                     <div className="w-full pb-5">
-                        <label htmlFor="date" className="block pb-2">Date</label>
+                        <label htmlFor="sessionDate" className="block pb-2">Date</label>
                         <input
                             type="date"
-                            name="date"
+                            id="sessionDate"
                             defaultValue={session.date ? format(session.date, "yyyy-MM-dd") : ''}
-                            onChange={handleChange}
+                            onChange={(event) => handleChange(event, "date")}
                             className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
                         />
                     </div>
                     <div className="w-full pb-5">
-                        <label htmlFor="name" className="block pb-2">Name</label>
+                        <label htmlFor="sessionName" className="block pb-2">Name</label>
                         <input
                             type="text"
-                            name="name"
+                            id="sessionName"
                             value={session.name}
-                            onChange={handleChange}
+                            onChange={(event) => handleChange(event, "name")}
                             className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
                         />
                     </div>
                     <div className="w-full pb-5">
-                        <label htmlFor="description" className="block pb-2">Description</label>
+                        <label htmlFor="sessionDescription" className="block pb-2">Description</label>
                         <textarea
-                            name="description"
+                            id="sessionDescription"
                             value={session.description}
-                            onChange={handleChange}
+                            onChange={(event) => handleChange(event, "description")}
                             className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
                         />
                     </div>
                     <div className="w-full pb-2">
                         <label className="block pb-2">Workouts</label>
                     </div>
-                    {workouts.map((workout) => (
-                    <WorkoutForm workout={workout} activities={activities} handleChange={handleChange} deleteWorkout={deleteWorkout} key={workout.id} />
+                    {session.workouts.map((workout, index) => (
+                    <WorkoutForm
+                        workout={workout}
+                        index={index}
+                        activities={activities}
+                        handleWorkoutChange={handleWorkoutChange}
+                        deleteWorkout={deleteWorkout}
+                        key={workout.id}
+                    />
                     ))}
                     <div>
                         <button className="st-action w-full" onClick={addWorkout}>
