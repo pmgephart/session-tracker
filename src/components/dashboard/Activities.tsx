@@ -8,7 +8,6 @@
 
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState, memo } from "react";
 import { format } from "date-fns";
 

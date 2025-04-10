@@ -25,7 +25,7 @@ const SessionForm = ({ id, type, activities }) => {
     const title = type == "update" ? `Update | ${session.name} | Session Tracker` : "Create Session | Session Tracker";
     const formTitle = type == "update" ? "Update Session" : "Create Session";
 
-    async function updateSession(event) : void {
+    async function handleSubmit(event) : void {
         event.preventDefault();
 
         const response = await toast.promise(
@@ -36,29 +36,6 @@ const SessionForm = ({ id, type, activities }) => {
             {
                 pending: "Updating session...",
                 success: "Session updated",
-                error: "An error has occurred. Please try again."
-            },
-            {
-                autoClose: 1500
-            }
-        );
-
-        console.log(response);
-        
-        const result = await response.json();
-    }
-
-    async function createSession(event) : void {
-        event.preventDefault();
-
-        const response = await toast.promise(
-            fetch(`/api/session`, {
-                method: "POST",
-                body: JSON.stringify(session)
-            }),
-            {
-                pending: "Creating session...",
-                success: "Session created",
                 error: "An error has occurred. Please try again."
             },
             {

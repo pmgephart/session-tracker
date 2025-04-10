@@ -1,8 +1,3 @@
-export interface User = {
-	id: number;
-	
-}
-
 export type Session = {
 	id: number;
 	date: string;
@@ -13,13 +8,21 @@ export type Session = {
 	workouts: Workout[];
 }
 
-export const SESSION_INITIAL: Session = {
-	id: 0,
-	date: '',
-	name: '',
-	description: '',
-	createdAt: '',
-	modifiedAt: '',
-	userId: 0,
-	workouts: []
-}
+export const SESSION_INITIAL_STATE = {
+    id: 0,
+    name: '',
+    description: '',
+    date: '',
+    userId: 0,
+    workouts: []
+};
+
+export const WORKOUT_INITIAL_STATE = {
+    id: 0,
+    activityId: '',
+    description: '',
+    sets: '',
+    reps: '',
+    weight: '',
+    duration: ''
+};

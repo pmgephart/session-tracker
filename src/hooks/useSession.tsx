@@ -1,0 +1,52 @@
+"use client";
+
+import { useState, useReducer, useEffect } from "react";
+import { SESSION_INITIAL_STATE, WORKOUT_INITIAL_STATE } from "@/model/Session";
+
+function sessionReducer(state, action) {
+    switch(action.type) {
+        case "update":
+            return action.session;
+        case "updateProp":
+            return { ...state, [action.field]: action.value };
+        case "updateWorkouts":
+            return {
+                ...state,
+                workouts: action.workouts
+            };
+        case "addWorkout":
+            return {
+                ...state,
+                workouts: [...state.workouts, WORKOUT_INITIAL_STATE]
+            };
+        default:
+            return state;
+    }
+}
+
+export function useSession(id: int) {
+    const [session, dispatch] = useReducer(sessionReducer, SESSION_INITIAL_STATE);
+    const [error, setError] = useState('');
+
+    async function getSession(id: int) : {} {
+        if(!id) {
+            return;
+        }
+
+        const response = await fetch(`/api/session?id=${id}`);
+        const result = await response.json();
+
+        if(result.session === null) {
+            setError("Session not found");
+            return;
+        }
+
+        dispatch({type: "update", session: result.session});
+    }
+
+    useEffect(() => {
+        getSession(id);
+    }, [id]);
+
+    return { session, dispatch, error };
+}

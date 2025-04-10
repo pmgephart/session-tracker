@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/util/db';
 
 type ResponseData = {
-	message: "",
 	session: {}
 }
 
@@ -42,13 +41,42 @@ export default async function handler (
 		}
 	}
 
-	if(req.method === "POST") {
+	if(req.method === "PUT") {
 		try {
+			const session = JSON.parse(req.body);
+			const id = parseInt(session.id);
+
+			if(!id) {
+				throw "Session ID is missing";
+			}
+
+			console.log(session);
+
+			const updateSession = await prisma.session.update({
+				where: {
+					id: id
+				},
+				data: {
+					name: session.name,
+					description: session.description,
+					date: session.date,
+					workouts: {
+						update: {
+							where
+						}
+					}
+				}
+			});
+
+			console.log(updateSession);
+
 			res.status(200).json({
-				session1: JSON.parse(req.body)
+				session: updateSession
 			});
 		}
 		catch(error) {
+			console.log(error);
+
 			res.status(400).json({
 				session: null
 			});
