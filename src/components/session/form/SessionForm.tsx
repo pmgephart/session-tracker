@@ -8,7 +8,7 @@
 
 "use client";
 
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useRef } from "react";
 import { FaPlus, FaSave } from "react-icons/fa";
 import { format } from "date-fns";
 import { toast } from "react-toastify";
@@ -21,6 +21,7 @@ import Title from "@/components/Title";
 import WorkoutForm from "@/components/session/form/WorkoutForm";
 
 const SessionForm = ({ id, type, activities }) => {
+    const ref = useRef(null);
     const { session, dispatch, error } = useSession(id);
     const title = type == "update" ? `Update | ${session.name} | Session Tracker` : "Create Session | Session Tracker";
     const formTitle = type == "update" ? "Update Session" : "Create Session";
@@ -42,8 +43,6 @@ const SessionForm = ({ id, type, activities }) => {
                 autoClose: 1500
             }
         );
-
-        console.log(response);
         
         const result = await response.json();
     }
@@ -81,9 +80,15 @@ const SessionForm = ({ id, type, activities }) => {
 
     function handleWorkoutChange(event, index, field) : void {
         let workouts = [...session.workouts];
+        let value = event.target.value;
+
+        if(field == "activityId") {
+            value = parseInt(value);
+        }
+
         let workout = {
             ...workouts[index],
-            [field]: event.target.value
+            [field]: value
         }
 
         workouts[index] = workout;

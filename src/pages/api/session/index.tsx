@@ -50,8 +50,6 @@ export default async function handler (
 				throw "Session ID is missing";
 			}
 
-			console.log(session);
-
 			const updateSession = await prisma.session.update({
 				where: {
 					id: id
@@ -60,15 +58,56 @@ export default async function handler (
 					name: session.name,
 					description: session.description,
 					date: session.date,
-					workouts: {
-						update: {
-							where
-						}
-					}
 				}
 			});
 
-			console.log(updateSession);
+			if(session.workouts.length) {
+				const processWorkouts = session.workouts.map(async (workout) => {
+					if(workout.id) {
+						const updateWorkout = await prisma.workout.update({
+							where: {
+								id: workout.id
+							},
+							data: {
+								description: workout.description,
+								sets: parseInt(workout.sets),
+								reps: parseInt(workout.reps),
+								weight: parseInt(workout.weight),
+								duration: workout.duration,
+								activity: {
+									connect: {
+										id: workout.activityId
+									}
+								}
+							}
+						});
+
+						return;
+					}
+
+					const createWorkout = await prisma.workout.create({
+						data: {
+							description: workout.description,
+							sets: parseInt(workout.sets),
+							reps: parseInt(workout.reps),
+							weight: parseInt(workout.weight),
+							duration: workout.duration,
+							activity: {
+								connect: {
+									id: workout.activityId
+								}
+							},
+							session: {
+								connect: {
+									id: session.id
+								}
+							}
+						}
+					});
+				});
+
+				const processAllWorkouts = await Promise.all(processWorkouts);
+			}
 
 			res.status(200).json({
 				session: updateSession

@@ -6,7 +6,7 @@
  * @url https://abovethecrux.com
  */
 
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, Prisma } from "@prisma/client"
 
 const prismaClientSingleton = () => {
 	return new PrismaClient();
