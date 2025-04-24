@@ -23,7 +23,7 @@ import WorkoutForm from "@/components/session/form/WorkoutForm";
 const SessionForm = ({ id, type, activities }) => {
     const ref = useRef(null);
     const { session, dispatch, error } = useSession(id);
-    const title = type == "update" ? `Update | ${session.name} | Session Tracker` : "Create Session | Session Tracker";
+    const title = type == "update" ? `${session.name} | Session Tracker` : "Create Session | Session Tracker";
     const formTitle = type == "update" ? "Update Session" : "Create Session";
 
     async function updateSession(event) : void {
