@@ -3,128 +3,128 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --light: #e5e7eb;
-  --dark: #3987cb;
+    --background: #ffffff;
+    --foreground: #171717;
+    --light: #e5e7eb;
+    --dark: #3987cb;
 }
 
 @layer base {
-  @font-face {
-    font-family: ;
-  }
+    @font-face {
+        font-family: ;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 h2 {
-  font-size: 26px;
-  font-weight: 600;
+    font-size: 26px;
+    font-weight: 600;
 }
 
 h3 {
-  font-size: 20px;
-  font-weight: 600;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .m-auto {
-  margin:0 auto;
+    margin:0 auto;
 }
 
 header.st-header img {
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
 header.st-header h2 {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .st-title {
-  margin-bottom:1em;
+    margin-bottom:1em;
 }
 
 .st-session-item {
-  background: var(--light);
-  margin-bottom: 1em;
+    background: var(--light);
+    margin-bottom: 1em;
 }
 
 .st-session-item:last-child {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .st-navigation a {
-  color: #ffffff;
-  background: var(--dark); 
+    color: #ffffff;
+    background: var(--dark);
 }
 
 .st-navigation a:hover {
-  color: var(--foreground);
-  background: var(--light);
+    color: var(--foreground);
+    background: var(--light);
 }
 
 .st-link {
-  color: #ffffff;
-  background: var(--dark);
-  padding: 0.75rem;
-  border-radius: 0.25rem;
-  display: block;
-  width: 100%;
+    color: #ffffff;
+    background: var(--dark);
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    display: block;
+    width: 100%;
 }
 
 .st-link:hover,
 .st-link:active {
-  color: var(--foreground);
-  background: var(--light);
+    color: var(--foreground);
+    background: var(--light);
 }
 
 .st-action {
-  color: #ffffff;
-  background: var(--dark);
-  padding: 0.75rem;
-  border-radius: 0.25rem;
+    color: #ffffff;
+    background: var(--dark);
+    padding: 0.75rem;
+    border-radius: 0.25rem;
 }
 
 .st-action:hover,
 .st-action:active {
-  color: var(--foreground);
-  background: var(--light);
+    color: var(--foreground);
+    background: var(--light);
 }
 
 .st-action *,
 .st-link * {
-  display: inline;
+    display: inline;
 }
 
 .st-action svg,
 .st-link svg {
-  margin-right: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 .st-form input[type=date],
 .st-form input[type=text],
 .st-form textarea,
 .st-form select {
-  border: 1px solid var(--light);
-  background: #F5F5F5;
+    border: 1px solid var(--light);
+    background: #F5F5F5;
 }
 
 .st-form .workout {
-  border: 1px solid var(--light);
+    border: 1px solid var(--light);
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
 }
