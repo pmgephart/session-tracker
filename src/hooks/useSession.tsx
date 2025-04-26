@@ -35,8 +35,11 @@ function sessionReducer(state, action) {
 export function useSession(id: int) {
     const [session, dispatch] = useReducer(sessionReducer, SESSION_INITIAL_STATE);
     const [error, setError] = useState('');
+    const [sessionLoading, setSessionLoading] = useState(false);
 
     async function getSession(id: int) : {} {
+        setSessionLoading(true);
+
         if(!id) {
             return;
         }
@@ -50,11 +53,13 @@ export function useSession(id: int) {
         }
 
         dispatch({type: "update", session: result.session});
+
+        setSessionLoading(false);
     }
 
     useEffect(() => {
         getSession(id);
     }, [id]);
 
-    return { session, dispatch, error };
+    return { session, dispatch, error, sessionLoading };
 }

@@ -17,13 +17,14 @@ import { useSession } from "@/hooks/useSession";
 
 import Head from "next/head";
 import Link from "next/link";
+import LoadingScreen from "@/components/LoadingScreen";
 import Title from "@/components/Title";
 import WorkoutForm from "@/components/session/form/WorkoutForm";
 
 const SessionView = ({ id }) => {
-    const { session, dispatch, error } = useSession(id);
+    const { session, dispatch, error, sessionLoading } = useSession(id);
     const title = `${session.name} | Session Tracker`;
-    
+
     if(error) {
         return (
             <div>
@@ -102,6 +103,11 @@ const SessionView = ({ id }) => {
                 </main>
             </div>
             ))}
+            {sessionLoading &&
+            <LoadingScreen
+                text="loading session..."
+            />
+            }
         </div>
     );
 }

@@ -17,16 +17,19 @@ import { useSession } from "@/hooks/useSession";
 
 import Form from "next/form";
 import Head from "next/head";
+import LoadingScreen from "@/components/LoadingScreen";
 import Title from "@/components/Title";
 import WorkoutForm from "@/components/session/form/WorkoutForm";
 
 const SessionForm = ({ id, type, activities }) => {
-    const ref = useRef(null);
-    const { session, dispatch, error } = useSession(id);
+    const [formLoading, setFormLoading] = useState(false);
+    const { session, dispatch, error, sessionLoading } = useSession(id);
     const title = type == "update" ? `${session.name} | Session Tracker` : "Create Session | Session Tracker";
     const formTitle = type == "update" ? "Update Session" : "Create Session";
 
     async function updateSession(event) : void {
+        setFormLoading(true);
+
         event.preventDefault();
 
         const response = await toast.promise(
@@ -45,9 +48,13 @@ const SessionForm = ({ id, type, activities }) => {
         );
         
         const result = await response.json();
+
+        setFormLoading(false);
     }
 
     async function createSession(event) : void {
+        setFormLoading(true);
+
         event.preventDefault();
 
         const response = await toast.promise(
@@ -66,6 +73,8 @@ const SessionForm = ({ id, type, activities }) => {
         );
         
         const result = await response.json();
+
+        setFormLoading(false);
     }
 
     function handleChange(event, field) : void {
@@ -196,6 +205,14 @@ const SessionForm = ({ id, type, activities }) => {
                     <span>save</span>
                 </button>
             </div>
+            {sessionLoading &&
+            <LoadingScreen
+                text="loading session..."
+            />
+            }
+            {formLoading &&
+            <LoadingScreen />
+            }
         </Form>
     );
 }

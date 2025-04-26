@@ -9,7 +9,7 @@
 "use client";
 
 import Link from "next/link";
-import { react, memo } from "react";
+import { memo } from "react";
 
 const Navigation = memo(() => {
     return (
