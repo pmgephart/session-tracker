@@ -32,7 +32,7 @@ function sessionReducer(state, action) {
     }
 }
 
-export function useSession(id: int) {
+export function useSession(id: int): void {
     const [session, dispatch] = useReducer(sessionReducer, SESSION_INITIAL_STATE);
     const [error, setError] = useState('');
     const [sessionLoading, setSessionLoading] = useState(false);
@@ -52,7 +52,10 @@ export function useSession(id: int) {
             return;
         }
 
-        dispatch({type: "update", session: result.session});
+        dispatch({
+            type: "update",
+            session: result.session
+        });
 
         setSessionLoading(false);
     }

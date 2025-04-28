@@ -24,6 +24,7 @@ import WorkoutForm from "@/components/session/form/WorkoutForm";
 const SessionForm = ({ id, type, activities }) => {
     const [formLoading, setFormLoading] = useState(false);
     const { session, dispatch, error, sessionLoading } = useSession(id);
+
     const title = type == "update" ? `${session.name} | Session Tracker` : "Create Session | Session Tracker";
     const formTitle = type == "update" ? "Update Session" : "Create Session";
 
@@ -84,7 +85,11 @@ const SessionForm = ({ id, type, activities }) => {
             value = parseISO(value);
         }
 
-        dispatch({ type: "updateProp", field: field, value: value });
+        dispatch({
+            type: "updateProp",
+            field: field,
+            value: value
+        });
     }
 
     function handleWorkoutChange(event, index, field) : void {
@@ -102,7 +107,10 @@ const SessionForm = ({ id, type, activities }) => {
 
         workouts[index] = workout;
 
-        dispatch({ type: "updateWorkouts", workouts: workouts });
+        dispatch({
+            type: "updateWorkouts",
+            workouts: workouts
+        });
     }
 
     function addWorkout(event) : void {
@@ -116,7 +124,10 @@ const SessionForm = ({ id, type, activities }) => {
 
         const filtered = session.workouts.filter((item, index) => index !== target);
 
-        dispatch({ type: "updateWorkouts", workouts: filtered });
+        dispatch({
+            type: "updateWorkouts",
+            workouts: filtered
+        });
     }
 
     if(error) {
