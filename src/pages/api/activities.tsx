@@ -1,9 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/util/db';
 
-type ResponseData = {
-	activities: []
-}
+type ResponseData = [];
 
 export default async function handler (
 	req: NextApiRequest,

@@ -9,9 +9,8 @@
 "use client";
 
 import Link from "next/link";
-import { memo } from "react";
 
-const Navigation = memo(() => {
+const Navigation = () => {
     return (
         <div className="st-navigation flex gap-4 text-xs max-w-full text-center">
             <Link href="/dashboard" className="flex-1 rounded p-3">dashboard</Link>
@@ -20,6 +19,6 @@ const Navigation = memo(() => {
             <Link href="/user/logoout" className="flex-1 rounded p-3">logout</Link>
         </div>
     );
-});
+};
 
 export default Navigation;

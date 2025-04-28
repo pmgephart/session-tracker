@@ -8,9 +8,7 @@
 
 "use client";
 
-import { memo } from "react";
-
-const LoadingScreen = memo(({ text = '' }) => {
+const LoadingScreen = ({ text = '' }) => {
     const loadingText = text !== '' ? text : "loading...";
 
     return (
@@ -19,6 +17,6 @@ const LoadingScreen = memo(({ text = '' }) => {
             <p className="mt-5">{loadingText}</p>
         </div>
     );
-});
+};
 
 export default LoadingScreen;

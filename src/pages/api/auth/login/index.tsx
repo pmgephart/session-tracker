@@ -9,6 +9,7 @@ export default async function handler (
         try {
             const { username, password } = req.body;
 
+            
             return res.status(200).json({
                 session: session});
         }

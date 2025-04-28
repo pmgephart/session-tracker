@@ -6,8 +6,6 @@
  * @url https://abovethecrux.com
  */
 
-"use client";
-
 import { useRouter } from "next/router";
 
 import SessionView from "@/components/session/view/SessionView";

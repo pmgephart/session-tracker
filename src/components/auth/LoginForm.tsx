@@ -10,13 +10,12 @@
 
 import { memo, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import { withRouter } from 'next/router'
 
 import Form from "next/form";
 import LoadingScreen from "@/components/LoadingScreen";
 
 const LoginForm = memo(() => {
-    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
     async function login(event: FormEvent<HTMLFormElement>) : void {
@@ -79,9 +78,9 @@ const LoginForm = memo(() => {
                     </div>
                 </Form>
             </main>
-            
+            {isLoading &&
             <LoadingScreen />
-            
+            }
         </div>
     );
 });

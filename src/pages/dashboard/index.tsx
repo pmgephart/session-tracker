@@ -10,6 +10,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useActivities } from "@/hooks/useActivities";
 
 import Activities from "@/components/dashboard/Activities";
 import Sessions from "@/components/dashboard/Sessions";
@@ -23,12 +24,16 @@ const USER_INITIAL_STATE = {
     sessions: []
 };
 
-export default function Dashboard() {
+export default function Dashboard({ activities }) {
+    const router = useRouter();
+
     const id = 1;
     const [user, setUser] = useState(USER_INITIAL_STATE);
-    const router = useRouter();
+    const [loading, setLoading] = useState(false);
     
     async function getUser(id: int) : {} {
+        setLoading(true);
+
         const response = await fetch(`api/user/${id}`);
         const result = await response.json();
 
@@ -37,6 +42,7 @@ export default function Dashboard() {
         }
 
         setUser(result.user);
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -45,8 +51,18 @@ export default function Dashboard() {
     
     return (
         <div className="st-dashboard">
-            <Sessions sessions={user.sessions} />
-            <Activities />
+            <Sessions sessions={user.sessions} loading={loading} />
+            <Activities activities={activities}/>
         </div>
     );
+}
+
+export async function getStaticProps() {
+    const activities = await useActivities();
+    
+    return {
+        props: {
+            activities
+        }
+    }
 }

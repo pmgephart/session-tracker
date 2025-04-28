@@ -6,17 +6,24 @@
  * @url https://abovethecrux.com
  */
 
-"use client";
-
-import { react, memo } from "react";
+import { memo } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { format } from "date-fns";
 
+import LoadingScreen from "@/components/LoadingScreen";
+
 import Link from "next/link";
 
-const Sessions = ({ sessions }) => {
+const Sessions = ({ sessions, loading }) => {
+    if(loading) {
+        return (
+            <LoadingScreen
+                text="loading sessions..."
+            />
+        );
+    }
 	return (
-		<>
+		<div className="st-sessions-list">
 			<div className="pb-5 mx-auto text-center">
 				<div className="text-sm">
 					<Link href="/dashboard/session/create" className="st-link">
@@ -48,7 +55,7 @@ const Sessions = ({ sessions }) => {
 					</div>
 				</main>
 			</div>
-		</>
+		</div>
 	);
 };
 
