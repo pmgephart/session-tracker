@@ -8,7 +8,6 @@
 
 "use client";
 
-import { memo } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { FaDeleteLeft } from "react-icons/fa6";
 

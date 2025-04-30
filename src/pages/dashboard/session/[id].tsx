@@ -14,7 +14,7 @@ import SessionView from "@/components/session/view/SessionView";
  * TODO: add delete button and functionality
  */
 
-export default function Session({ activities }) {
+export default function Session() {
     const router = useRouter();
 
     return (

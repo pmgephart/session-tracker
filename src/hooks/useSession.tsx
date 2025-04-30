@@ -9,7 +9,8 @@
 "use client";
 
 import { useState, useReducer, useEffect } from "react";
-import { SESSION_INITIAL_STATE, WORKOUT_INITIAL_STATE } from "@/model/Session";
+import { defaultSession} from "@/model/Session";
+import { defaultWorkout } from "@/model/Workout";
 
 function sessionReducer(state, action) {
     switch(action.type) {
@@ -25,7 +26,7 @@ function sessionReducer(state, action) {
         case "addWorkout":
             return {
                 ...state,
-                workouts: [...state.workouts, WORKOUT_INITIAL_STATE]
+                workouts: [...state.workouts, defaultWorkout]
             };
         default:
             return state;
@@ -33,7 +34,7 @@ function sessionReducer(state, action) {
 }
 
 export function useSession(id: int): void {
-    const [session, dispatch] = useReducer(sessionReducer, SESSION_INITIAL_STATE);
+    const [session, dispatch] = useReducer(sessionReducer, defaultSession);
     const [error, setError] = useState('');
     const [sessionLoading, setSessionLoading] = useState(false);
 

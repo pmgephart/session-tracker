@@ -1,9 +1,18 @@
-type User = {
+/**
+ * Session Tracker App
+ * 
+ * @author Patrick Gephart
+ * @email pmgephart@gmail.com
+ * @url https://abovethecrux.com
+ */
+
+export interface User {
 	id: number;
 	email: string;
-	first_name: string;
-	last_name: string;
+	firstName: string;
+	lastName: string;
 	active: boolean;
-	created: string;
-	modified: string;
+	createdAt: string;
+	updatedAt: string;
+    sessions: Array<Session>
 }

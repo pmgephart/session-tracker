@@ -10,43 +10,39 @@
 
 import { memo, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
-import { withRouter } from 'next/router'
 
 import Form from "next/form";
 import LoadingScreen from "@/components/LoadingScreen";
 
-const LoginForm = memo(() => {
+const LoginForm = memo(({ router }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
     async function login(event: FormEvent<HTMLFormElement>) : void {
         event.preventDefault();
+
+        setError('');
         setIsLoading(true);
 
         const data = new FormData(event.currentTarget);
-        const username = data.get("username");
+        const email = data.get("email");
         const password = data.get("password");
 
-        const response = await toast.promise(
-            fetch(`/api/auth/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ username, password})
-            }),
-            {
-                pending: "Updating session...",
-                success: "Session updated",
-                error: "An error has occurred. Please try again."
+        const response = await fetch(`/api/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
             },
-            {
-                autoClose: 1500
-            }
-        );
-        
-        const result = await response.json();
+            body: JSON.stringify({ email, password})
+        });
 
-        console.log(result);
+        const result = await response.json();
+        
+        if(response.ok) {
+            router.push("/dashboard/profile");
+        }
+
+        setError(result.message);
 
         setIsLoading(false);
     }
@@ -56,10 +52,11 @@ const LoginForm = memo(() => {
             <main className="p-5 text-sm">
                 <Form className="st-form" onSubmit={login}>
                     <div className="w-full pb-5">
-                        <label htmlFor="username" className="block pb-2">username</label>
+                        <label htmlFor="email" className="block pb-2">username</label>
                         <input
                             type="text"
-                            id="username"
+                            id="email"
+                            name="email"
                             className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
                         />
                     </div>
@@ -68,6 +65,7 @@ const LoginForm = memo(() => {
                         <input
                             type="password"
                             id="password"
+                            name="password"
                             className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
                         />
                     </div>
@@ -76,6 +74,11 @@ const LoginForm = memo(() => {
                             <span>login</span>
                         </button>
                     </div>
+                    {error &&
+                    <div className="st-error rounded mt-3 p-3 text-xs bg-red-100 border-red-600 border-solid">
+                        <p className="text-red-600">{error}</p>
+                    </div>
+                    }
                 </Form>
             </main>
             {isLoading &&

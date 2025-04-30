@@ -33,7 +33,7 @@ const Sessions = ({ sessions, loading }) => {
 				</div>
 			</div>
 			<div className="rounded text-left border">
-				<main className="p-5 text-sm">
+				<main className="p-5 text-xs">
 					<div>
 						<h3 className="pb-5">recent sessions</h3>
 						{sessions && sessions.length ? (

@@ -1,28 +1,31 @@
-export type Session = {
+/**
+ * Session Tracker App
+ * 
+ * @author Patrick Gephart
+ * @email pmgephart@gmail.com
+ * @url https://abovethecrux.com
+ */
+
+import { Workout } from "@/model/Workout";
+
+export interface Session {
 	id: number;
 	date: string;
 	name: string;
-	description: string;
+	description?: string;
 	createdAt: string;
 	modifiedAt: string;
-	workouts: Workout[];
+    workouts: Array<Workout>;
+    userId: 0;
 }
 
-export const SESSION_INITIAL_STATE = {
+export const defaultSession: Session = {
     id: 0,
+    date: '',
     name: '',
     description: '',
-    date: '',
+    createdAt: '',
+    modifiedAt: '',
     userId: 0,
     workouts: []
-};
-
-export const WORKOUT_INITIAL_STATE = {
-    id: 0,
-    activityId: '',
-    description: '',
-    sets: '',
-    reps: '',
-    weight: '',
-    duration: ''
 };
