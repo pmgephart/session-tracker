@@ -6,7 +6,7 @@
  * @url https://abovethecrux.com
  */
 
-import { defaultActivity } from "@/model/Activity";
+import { Activity } from "@/model/Activity";
 
 export interface Workout {
     id: bigint;

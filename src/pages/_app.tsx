@@ -7,3 +7,7 @@ export default function App({ Component, pageProps }) {
         </Layout>
     );
 }
+
+async function getUserSession() {
+    
+}

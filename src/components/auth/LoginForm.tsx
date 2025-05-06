@@ -39,10 +39,12 @@ const LoginForm = memo(({ router }) => {
         const result = await response.json();
         
         if(response.ok) {
-            router.push("/dashboard/profile");
+            console.log(result);
+
+            //router.push("/dashboard/profile");
         }
 
-        setError(result.message);
+        //setError(result.message);
 
         setIsLoading(false);
     }
