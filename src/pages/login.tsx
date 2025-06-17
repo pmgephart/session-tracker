@@ -6,8 +6,6 @@
  * @url https://abovethecrux.com
  */
 
-"use client";
-
 import { useRouter } from "next/navigation";
 
 import LoginForm from "@/components/auth/LoginForm";

@@ -12,6 +12,7 @@ import { memo, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
 
 import Form from "next/form";
+import Button from "@/components/Button";
 import LoadingScreen from "@/components/LoadingScreen";
 
 const LoginForm = memo(({ router }) => {
@@ -33,7 +34,7 @@ const LoginForm = memo(({ router }) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email, password})
+            body: JSON.stringify({ email, password })
         });
 
         const result = await response.json();
@@ -71,11 +72,10 @@ const LoginForm = memo(({ router }) => {
                             className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
                         />
                     </div>
-                    <div className="text-sm">
-                        <button type="submit" className="st-action w-full">
-                            <span>login</span>
-                        </button>
-                    </div>
+                    <Button
+                        text="login"
+                        width="full"
+                    />
                     {error &&
                     <div className="st-error rounded mt-3 p-3 text-xs bg-red-100 border-red-600 border-solid">
                         <p className="text-red-600">{error}</p>

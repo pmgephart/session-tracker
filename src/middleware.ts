@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
         userSessionOptions
     );
 
-    console.log(session);
+    // console.log(session);
 /*
     if(!session.loggedIn) {
         return NextResponse.redirect(new URL("/login", request.url));

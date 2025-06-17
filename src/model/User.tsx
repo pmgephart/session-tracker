@@ -11,13 +11,13 @@ import { Session } from "@/model/Session";
 export interface User {
 	id: number;
 	email: string;
-	firstName?: string;
+	firstName: string;
 	lastName?: string;
     password: string;
 	active: boolean;
-	createdAt: string;
-	updatedAt: string;
-    sessions: Array<Session>
+	createdAt?: string;
+	updatedAt?: string;
+    sessions?: Array<Session>
 }
 
 export const defaultUser: User = {

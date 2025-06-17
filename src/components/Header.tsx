@@ -13,7 +13,11 @@ import { memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Header = memo(({ user }) => {
+interface HeaderProps {
+    user: {}
+}
+
+const Header: FC<HeaderProps> = memo(({ user }): JSX.Element => {
     return (
         <header className="st-header border-b-4 border-solid border-black p-5">
             <div className="flex items-center justify-center">

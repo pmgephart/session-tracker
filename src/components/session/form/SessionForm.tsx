@@ -75,6 +75,8 @@ const SessionForm = ({ id, type, activities }) => {
         
         const result = await response.json();
 
+        console.log(result);
+
         setFormLoading(false);
     }
 
@@ -216,7 +218,7 @@ const SessionForm = ({ id, type, activities }) => {
                     <span>save</span>
                 </button>
             </div>
-            {sessionLoading &&
+            {type == "udpate" && sessionLoading &&
             <LoadingScreen
                 text="loading session..."
             />

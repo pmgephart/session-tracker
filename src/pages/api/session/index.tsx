@@ -121,4 +121,10 @@ export default async function handler (
 			});
 		}
 	}
+
+    if(req.method === "POST") {
+        res.status(200).json({
+            made: "made it"
+        });
+    }
 }

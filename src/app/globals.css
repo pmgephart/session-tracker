@@ -149,6 +149,12 @@ header.st-header h2 {
   animation: spin 1s linear infinite;
 }
 
+/** errors **/
+
+.st-errors p:last-child {
+    padding-bottom:0;
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }

@@ -8,7 +8,11 @@
 
 "use client";
 
-const LoadingScreen = ({ text = '' }) => {
+interface LoadingScreenProps {
+    text: string
+}
+
+const LoadingScreen: FC<LoadingScreenProps> = ({ text = '' }): JSX.Element => {
     const loadingText = text !== '' ? text : "loading...";
 
     return (
