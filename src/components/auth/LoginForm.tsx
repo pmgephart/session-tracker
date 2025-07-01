@@ -9,17 +9,23 @@
 "use client";
 
 import { memo, useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+
+import { useUser } from "@/contexts/UserContext";
 
 import Form from "next/form";
 import Button from "@/components/Button";
 import LoadingScreen from "@/components/LoadingScreen";
 
-const LoginForm = memo(({ router }) => {
+const LoginForm = memo(() => {
+    const { user, login, logout } = useUser();
+    const router = useRouter();
+    
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
-    async function login(event: FormEvent<HTMLFormElement>) : void {
+    async function loginSubmit(event: FormEvent<HTMLFormElement>) : void {
         event.preventDefault();
 
         setError('');
@@ -42,7 +48,7 @@ const LoginForm = memo(({ router }) => {
         if(response.ok) {
             console.log(result);
 
-            //router.push("/dashboard/profile");
+            router.push("/dashboard/profile");
         }
 
         //setError(result.message);
@@ -53,7 +59,7 @@ const LoginForm = memo(({ router }) => {
     return (
         <div className="rounded text-left border mb-5">
             <main className="p-5 text-sm">
-                <Form className="st-form" onSubmit={login}>
+                <Form className="st-form" onSubmit={loginSubmit}>
                     <div className="w-full pb-5">
                         <label htmlFor="email" className="block pb-2">username</label>
                         <input

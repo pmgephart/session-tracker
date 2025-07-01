@@ -13,17 +13,26 @@ import { getIronSession } from "iron-session";
 
 import { UserSessionData, userSessionOptions } from "@/model/UserSession";
 
+export const config = {
+    matcher: [
+        '/((?!api|login|_next/static|_next/image|favicon.ico).*)',
+    ]
+}
+
 export async function middleware(request: NextRequest) {
+    const { pathname } = request.nextUrl;
+
     const nextCookies = await cookies();
     const session = await getIronSession<UserSessionData>(
         nextCookies,
         userSessionOptions
     );
 
-    // console.log(session);
-/*
+    console.log(session);
+
     if(!session.loggedIn) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
-*/
+
+    return NextResponse.next();
 }

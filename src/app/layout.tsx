@@ -1,3 +1,5 @@
+import { UserProvider } from "@/contexts/UserContext";
+
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -20,11 +22,13 @@ export default function RootLayout({ children }: Readonly<{children: React.React
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased font-[family-name:var(--font-geist-mono)]`}>
-                <Header />
-                <main className="pl-5 pr-5 pb-5 flex flex-col max-w-md items-center justify-items-center text-center m-auto">
-                    {children}
-                </main>
-                <Footer />
+                <UserProvider>
+                    <Header />
+                    <main className="pl-5 pr-5 pb-5 flex flex-col max-w-md items-center justify-items-center text-center m-auto">
+                        {children}
+                    </main>
+                    <Footer />
+                </UserProvider>
             </body>
         </html>
     );

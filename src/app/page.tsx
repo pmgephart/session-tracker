@@ -1,6 +1,14 @@
-import LoginForm from "../components/auth/LoginForm";
+/**
+ * Session Tracker App
+ * 
+ * @author Patrick Gephart
+ * @email pmgephart@gmail.com
+ * @url https://abovethecrux.com
+ */
 
-export default function Home() {
+import LoginForm from "@/components/auth/LoginForm";
+
+export default function Page() {
     return (
         <LoginForm />
     );

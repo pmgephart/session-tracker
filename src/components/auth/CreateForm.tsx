@@ -10,6 +10,7 @@
 
 import { memo, useState, FormEvent } from "react";
 import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 import Form from "next/form";
 import Head from "next/head";
@@ -18,7 +19,9 @@ import Errors from "@/components/Errors";
 import LoadingScreen from "@/components/LoadingScreen";
 import Title from "@/components/Title";
 
-const CreateForm = memo(({ router }) => {
+const CreateForm = memo(() => {
+    const router = useRouter();
+    
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState([]);
 

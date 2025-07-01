@@ -6,12 +6,16 @@
  * @url https://abovethecrux.com
  */
 
+import { UserProvider } from "@/contexts/UserContext";
+
 import Layout from '@/components/Layout';
  
 export default function App({ Component, pageProps }) {
     return (
-        <Layout>
-            <Component {...pageProps} />
-        </Layout>
+        <UserProvider>
+            <Layout>
+                <Component {...pageProps} />
+            </Layout>
+        </UserProvider>
     );
 }

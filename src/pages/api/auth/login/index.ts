@@ -9,7 +9,7 @@ export default async function handler (
 ) {
     const session = await getIronSession<UserSessionData>(req, res, userSessionOptions);
 
-    if(req.method === "POST") {
+    if(req.method === "GET") {
         try {
             const { email, password } = req.body;
 
@@ -37,7 +37,7 @@ export default async function handler (
                 throw "Invalid email and/or password";
             }
 
-            delete user.password;
+            delete user.password; // no need for this here
 
             // handle session
             session.loggedIn = true;
