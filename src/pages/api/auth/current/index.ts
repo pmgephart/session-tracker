@@ -11,11 +11,17 @@ export default async function handler (
 
     if(req.method === "GET") {
         try {
-            const email = "pmgephart@gmail.com";
+            const session = await getIronSession<UserSessionData>(req, res, userSessionOptions);
+
+            if(!session.user) {
+                return res.status(200).json({
+                    user: null
+                });
+            }
 
             const user = await prisma.user.findUnique({
                 where: {
-                    email: email
+                    email: session.user.email
                 },
                 include: {
                     sessions: {
@@ -30,11 +36,10 @@ export default async function handler (
                 }
             });
 
-            console.log(user);
-
             return res.status(200).json({
                 user: user
             });
+            
         }
         catch(error) {
             res.status(400).json({

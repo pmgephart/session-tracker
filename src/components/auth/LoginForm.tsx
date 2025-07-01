@@ -35,23 +35,13 @@ const LoginForm = memo(() => {
         const email = data.get("email");
         const password = data.get("password");
 
-        const response = await fetch(`/api/auth/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, password })
-        });
-
-        const result = await response.json();
-        
-        if(response.ok) {
-            console.log(result);
-
-            router.push("/dashboard/profile");
+        try {
+            await login(email, password);
+            router.push("/dashboard");
         }
-
-        //setError(result.message);
+        catch(error) {
+            console.log(error);
+        }
 
         setIsLoading(false);
     }

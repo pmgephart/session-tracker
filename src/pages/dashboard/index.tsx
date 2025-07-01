@@ -19,7 +19,7 @@ import Sessions from "@/components/dashboard/Sessions";
 export default function Dashboard({ activities }) {
     const { user, loading } = useUser();
     const router = useRouter();
-    
+
     return (
         <div className="st-dashboard">
             {user && ((

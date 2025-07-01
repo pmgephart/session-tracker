@@ -20,15 +20,11 @@ export const config = {
 }
 
 export async function middleware(request: NextRequest) {
-    const { pathname } = request.nextUrl;
-
     const nextCookies = await cookies();
     const session = await getIronSession<UserSessionData>(
         nextCookies,
         userSessionOptions
     );
-
-    console.log(session);
 
     if(!session.loggedIn) {
         return NextResponse.redirect(new URL("/login", request.url));

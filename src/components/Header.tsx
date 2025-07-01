@@ -9,15 +9,14 @@
 "use client";
 
 import { memo } from "react";
+import { useUser } from "@/contexts/UserContext";
 
 import Image from "next/image";
 import Link from "next/link";
 
-interface HeaderProps {
-    user: {}
-}
+const Header: FC<HeaderProps> = memo((): JSX.Element => {
+    const { user } = useUser();
 
-const Header: FC<HeaderProps> = memo(({ user }): JSX.Element => {
     return (
         <header className="st-header border-b-4 border-solid border-black p-5">
             <div className="flex items-center justify-center">

@@ -29,14 +29,14 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }, []);
 
     async function current() {
-        const response = await fetch(`api/auth/current`);
+        const response = await fetch(`/api/auth/current`);
         const result = await response.json();
 
         if(result.error) {
             setLoading(false);
             return;
         }
-        console.log(result.user);
+
         setUser(result.user);
         setLoading(false);
     }
@@ -51,8 +51,10 @@ export function UserProvider({ children }: { children: ReactNode }) {
         const result = await response.json();
         
         if(response.ok) {
-            console.log(result);
             setUser(result.user);
+        }
+        else {
+            throw new Error(data.message || "User login failed");
         }
     }
 

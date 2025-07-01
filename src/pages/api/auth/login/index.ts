@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getIronSession } from "iron-session";
 import { prisma } from "@/util/db";
-import { UserSessionData, defaultUserSession, userSessionOptions } from "@/model/UserSession";
+import { UserSessionData, userSessionOptions } from "@/model/UserSession";
 
 export default async function handler (
     req: NextApiRequest,
@@ -9,7 +9,7 @@ export default async function handler (
 ) {
     const session = await getIronSession<UserSessionData>(req, res, userSessionOptions);
 
-    if(req.method === "GET") {
+    if(req.method === "POST") {
         try {
             const { email, password } = req.body;
 
@@ -20,6 +20,17 @@ export default async function handler (
             const user = await prisma.user.findUnique({
                 where: {
                     email: email
+                },
+                include: {
+                    sessions: {
+                        include: {
+                            workouts: {
+                                include: {
+                                    activity: true
+                                }
+                            }
+                        }
+                    }
                 }
             });
 
