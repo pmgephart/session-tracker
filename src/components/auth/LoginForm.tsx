@@ -40,7 +40,7 @@ const LoginForm = memo(() => {
             router.push("/dashboard");
         }
         catch(error) {
-            console.log(error);
+            setError(error.message);
         }
 
         setIsLoading(false);
@@ -51,7 +51,7 @@ const LoginForm = memo(() => {
             <main className="p-5 text-sm">
                 <Form className="st-form" onSubmit={loginSubmit}>
                     <div className="w-full pb-5">
-                        <label htmlFor="email" className="block pb-2">username</label>
+                        <label htmlFor="email" className="block pb-2">Username</label>
                         <input
                             type="text"
                             id="email"
@@ -60,7 +60,7 @@ const LoginForm = memo(() => {
                         />
                     </div>
                     <div className="w-full pb-5">
-                        <label htmlFor="password" className="block pb-2">password</label>
+                        <label htmlFor="password" className="block pb-2">Password</label>
                         <input
                             type="password"
                             id="password"

@@ -35,7 +35,7 @@ export default async function handler (
             });
 
             if(!user) {
-                throw "Invalid email and/or password";
+                throw "Invalid email or password";
             }
 
             let validPassword = true;
@@ -45,7 +45,7 @@ export default async function handler (
             }
 
             if(!validPassword) {
-                throw "Invalid email and/or password";
+                throw "Invalid email or password";
             }
 
             delete user.password; // no need for this here

@@ -54,7 +54,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
             setUser(result.user);
         }
         else {
-            throw new Error(data.message || "User login failed");
+            throw new Error(result.message || "User login failed");
         }
     }
 

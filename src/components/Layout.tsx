@@ -30,28 +30,9 @@ const geistMono = localFont({
 });
 
 export default function Layout({ children }: Readonly<{children: React.ReactNode;}>) {
-    const router = useRouter();
-    const id = 1;
-    const [user, setUser] = useState({});
-
-    async function getUser(id: int) : {} {
-        const response = await fetch(`/api/user/${id}`);
-        const result = await response.json();
-
-        if(result.error) {
-            router.push("/login");
-        }
-
-        setUser(result.user);
-    }
-
-    useEffect(() => {
-        getUser(id);
-    }, [id]);
-
     return (
-        <div className={`${geistSans.variable} ${geistMono.variable} max-w-md m-auto antialiased font-[family-name:var(--font-geist-mono)]`}>
-            <Header user={user} />
+        <div className={`${geistSans.variable} ${geistMono.variable} max-w-md w-screen m-auto antialiased font-[family-name:var(--font-geist-mono)]`}>
+            <Header />
             <main className="pt-5 pr-5 pl-5 pb-[104px]">
                 {children}
             </main>

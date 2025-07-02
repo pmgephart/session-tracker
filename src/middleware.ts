@@ -15,7 +15,7 @@ import { UserSessionData, userSessionOptions } from "@/model/UserSession";
 
 export const config = {
     matcher: [
-        '/((?!api|login|_next/static|_next/image|favicon.ico).*)',
+        '/((?!api|login|create|_next/static|_next/image|favicon.ico|images/:path*).*)',
     ]
 }
 

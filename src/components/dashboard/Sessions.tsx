@@ -27,8 +27,8 @@ const Sessions = ({ sessions, loading }) => {
 			<div className="pb-5 mx-auto text-center">
 				<div className="text-sm">
 					<Link href="/dashboard/session/create" className="st-link">
+                        <FaPlusCircle />
 						<span>add session</span>
-						<FaPlusCircle />
 					</Link>
 				</div>
 			</div>

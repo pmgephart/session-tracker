@@ -6,10 +6,16 @@
  * @url https://abovethecrux.com
  */
 
+import Head from "next/head";
 import CreateForm from "@/components/auth/CreateForm";
 
 export default function Login() {
     return (
-        <CreateForm />
+        <>
+            <Head>
+                <title>Create Account | Session Tracker</title>
+            </Head>
+            <CreateForm />
+        </>
     );
 }
