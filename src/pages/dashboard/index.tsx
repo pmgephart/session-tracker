@@ -30,7 +30,6 @@ export default function Dashboard({ activities }) {
                 {user && ((
                 <Sessions sessions={user.sessions} loading={loading} />
                 ))}
-                <Activities activities={activities}/>
             </div>
         </>
     );

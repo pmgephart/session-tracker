@@ -10,9 +10,8 @@
 
 import { memo, useState, useEffect, useRef } from "react";
 import { FaPlus, FaSave } from "react-icons/fa";
-import { format } from "date-fns";
+import { parseISO, format } from "date-fns";
 import { toast } from "react-toastify";
-
 import { useSession } from "@/hooks/useSession";
 
 import Form from "next/form";
@@ -74,8 +73,6 @@ const SessionForm = ({ id, type, activities }) => {
         );
         
         const result = await response.json();
-
-        console.log(result);
 
         setFormLoading(false);
     }
@@ -163,7 +160,7 @@ const SessionForm = ({ id, type, activities }) => {
                             id="sessionDate"
                             defaultValue={session.date ? format(session.date, "yyyy-MM-dd") : ''}
                             onChange={(event) => handleChange(event, "date")}
-                            className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
+                            className="bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
                         />
                     </div>
                     <div className="w-full pb-5">
@@ -176,11 +173,12 @@ const SessionForm = ({ id, type, activities }) => {
                             className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
                         />
                     </div>
-                    <div className="w-full pb-5">
+                    <div className="w-full">
                         <label htmlFor="sessionDescription" className="block pb-2">Description</label>
                         <textarea
                             id="sessionDescription"
                             value={session.description}
+                            rows="4"
                             onChange={(event) => handleChange(event, "description")}
                             className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
                         />
@@ -209,7 +207,7 @@ const SessionForm = ({ id, type, activities }) => {
                 activities={activities}
                 handleWorkoutChange={handleWorkoutChange}
                 deleteWorkout={deleteWorkout}
-                key={workout.id}
+                key={index}
             />
             ))}
             <div className="text-sm">

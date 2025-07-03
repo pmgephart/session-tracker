@@ -17,6 +17,7 @@ import { useSession } from "@/hooks/useSession";
 
 import Head from "next/head";
 import Link from "next/link";
+import Errors from "@/components/Errors";
 import LoadingScreen from "@/components/LoadingScreen";
 import Title from "@/components/Title";
 import WorkoutForm from "@/components/session/form/WorkoutForm";
@@ -31,9 +32,11 @@ const SessionView = ({ id }) => {
                 <Head>
                     <title>{error}</title>
                 </Head>
-                <div className="text-center">
-                    <p>{error}</p>
-                </div>
+                <Errors
+                    errors={[{
+                        error: error
+                    }]}
+                />
             </div>
         );
     }

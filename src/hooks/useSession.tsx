@@ -12,7 +12,7 @@ import { useState, useReducer, useEffect } from "react";
 import { defaultSession} from "@/model/Session";
 import { defaultWorkout } from "@/model/Workout";
 
-function sessionReducer(state, action) {
+function sessionReducer(state, action: string): void {
     switch(action.type) {
         case "update":
             return action.session;

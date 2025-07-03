@@ -42,10 +42,6 @@ h3 {
     margin:0 auto;
 }
 
-header.st-header img {
-    margin: 0 auto;
-}
-
 header.st-header h2 {
     margin-bottom: 0;
 }
@@ -118,6 +114,7 @@ header.st-header h2 {
 .st-form select {
     border: 1px solid var(--light);
     background: #F5F5F5;
+    max-width:100%;
 }
 
 .st-form .workout {
@@ -162,5 +159,14 @@ header.st-header h2 {
 @layer utilities {
     .text-balance {
         text-wrap: balance;
+    }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) and (max-width:768px) {
+    label,
+    select,
+    textarea,
+    input {
+        font-size: 16px;
     }
 }

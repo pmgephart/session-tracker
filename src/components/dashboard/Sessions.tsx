@@ -7,7 +7,7 @@
  */
 
 import { memo } from "react";
-import { FaPlusCircle } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import { format } from "date-fns";
 
 import LoadingScreen from "@/components/LoadingScreen";
@@ -27,7 +27,7 @@ const Sessions = ({ sessions, loading }) => {
 			<div className="pb-5 mx-auto text-center">
 				<div className="text-sm">
 					<Link href="/dashboard/session/create" className="st-link">
-                        <FaPlusCircle />
+                        <FaPlus />
 						<span>add session</span>
 					</Link>
 				</div>

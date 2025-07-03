@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getIronSession } from "iron-session";
 import { prisma } from "@/util/db";
 import { createUser } from "@/util/user";
+import { hashPassword } from "@/util/crypt";
 import { UserSessionData, defaultUserSession, userSessionOptions } from "@/model/UserSession";
 
 export default async function handler (
@@ -71,14 +72,8 @@ export default async function handler (
             throw errors;
         }
 
-        // no errors, proceed with creating user
-        const user = createUser({
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            password: password,
-            active: true
-        });
+        const encryptedPassword = await hashPassword(password);
+        const user = await createUser(email, firstName, lastName, encryptedPassword, true);
 
         res.status(200).json({
             id: user.id

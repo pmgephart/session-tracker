@@ -16,20 +16,22 @@ import Form from "next/form";
 import Head from "next/head";
 import Button from "@/components/Button";
 import Errors from "@/components/Errors";
+import FormError from "@/components/FormError";
+import Field from "@/components/form/Field";
 import LoadingScreen from "@/components/LoadingScreen";
 import Title from "@/components/Title";
 
-const CreateForm = memo(() => {
+const CreateForm: FC = memo((): JSX.Element => {
     const router = useRouter();
     
-    const [isLoading, setIsLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState([]);
 
     async function createUser(event: FormEvent<HTMLFormElement>) : void {
         event.preventDefault();
 
         setErrors([]);
-        setIsLoading(true);
+        setLoading(true);
 
         const data = new FormData(event.currentTarget);
         const email = data.get("email");
@@ -56,12 +58,20 @@ const CreateForm = memo(() => {
 
         if(!response.ok) {
             setErrors(result.errors);
-            setIsLoading(false);
+            setLoading(false);
             return;
         }
 
-        setIsLoading(false);
-        router.push("/dashboard");
+        try {
+            await login(email, password);
+            router.push("/dashboard");
+        }
+        catch(error) {
+            console.log(error);
+            //setErrors(error.message);
+        }
+
+        setLoading(false);
     }
 
     return (
@@ -75,60 +85,17 @@ const CreateForm = memo(() => {
             />
             <div className="rounded text-left border mb-5">
                 <main className="p-5 text-sm">
-                    <Errors
-                        errors={errors}
-                    />
-                    <div className="w-full pb-5">
-                        <label htmlFor="email" className="block pb-2">Email</label>
-                        <input
-                            type="text"
-                            id="email"
-                            name="email"
-                            className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
-                        />
-                    </div>
-                    <div className="w-full pb-5">
-                        <label htmlFor="password" className="block pb-2">First Name</label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            name="firstName"
-                            className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
-                        />
-                    </div>
-                    <div className="w-full pb-5">
-                        <label htmlFor="password" className="block pb-2">Last Name</label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            name="lastName"
-                            className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
-                        />
-                    </div>
-                    <div className="w-full pb-5">
-                        <label htmlFor="password" className="block pb-2">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
-                        />
-                    </div>
-                    <div className="w-full pb-5">
-                        <label htmlFor="password" className="block pb-2">Confirm Password</label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            name="confirmPassword"
-                            className="w-full bg-transparent rounded px-3 py-2 transition duration-300 ease focus:outline-none shadow-sm focus:shadow-md"
-                        />
-                    </div>
+                    <Field name="email" id="email" label="Email" value="" type="text" errors={errors} />
+                    <Field name="firstName" id="firstName" label="First Name" type="text" errors={errors} />
+                    <Field name="lastName" id="lastName" label="Last Name" type="text" errors={errors} />
+                    <Field name="password" id="password" label="Password" type="password" errors={errors} />
+                    <Field name="confirmPassword" id="confirmPassword" label="Confirm Password" type="password" errors={errors} />
                     <Button
                         text="create account"
                         width="full"
                     />
                 </main>
-                {isLoading &&
+                {loading &&
                 <LoadingScreen />
                 }
             </div>

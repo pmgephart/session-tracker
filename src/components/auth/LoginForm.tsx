@@ -15,6 +15,8 @@ import { toast } from "react-toastify";
 import { useUser } from "@/contexts/UserContext";
 
 import Form from "next/form";
+import Link from "next/link";
+
 import Button from "@/components/Button";
 import LoadingScreen from "@/components/LoadingScreen";
 
@@ -78,6 +80,12 @@ const LoginForm = memo(() => {
                     </div>
                     }
                 </Form>
+                <div className="w-full mt-7 pt-5 border-t">
+                    <p className="pb-5">Not a member?</p>
+                    <div className="st-navigation">
+                        <Link href="/create" className="flex-1 rounded p-3 w-full block text-center">create an account</Link>
+                    </div>
+                </div>
             </main>
             {isLoading &&
             <LoadingScreen />

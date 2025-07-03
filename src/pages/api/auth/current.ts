@@ -7,8 +7,6 @@ export default async function handler (
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const session = await getIronSession<UserSessionData>(req, res, userSessionOptions);
-
     if(req.method === "GET") {
         try {
             const session = await getIronSession<UserSessionData>(req, res, userSessionOptions);

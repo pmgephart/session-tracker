@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getIronSession } from "iron-session";
 import { prisma } from "@/util/db";
+import { comparePasswords } from "@/util/crypt";
 import { UserSessionData, userSessionOptions } from "@/model/UserSession";
 
 export default async function handler (
@@ -35,17 +36,14 @@ export default async function handler (
             });
 
             if(!user) {
-                throw "Invalid email or password";
+                throw `A user with email "${email}" was not found`;
             }
 
-            let validPassword = true;
+            // make sure passwords match
+            const passwordsMatch = await comparePasswords(password, user.password);
 
-            if(password !== user.password) {
-                validPassword = false;
-            }
-
-            if(!validPassword) {
-                throw "Invalid email or password";
+            if(!passwordsMatch) {
+                throw "Invalid username or password";
             }
 
             delete user.password; // no need for this here
@@ -57,13 +55,12 @@ export default async function handler (
 
             await session.save();
 
-            console.log(session);
-
             return res.status(200).json({
                 user: user
             });
         }
         catch(error) {
+            console.log(error);
             res.status(400).json({
                 message: error
             });
