@@ -6,10 +6,9 @@
  * @url https://abovethecrux.com
  */
 
-import { useEffect, useState, memo } from "react";
-import { format } from "date-fns";
+import { memo } from "react";
 
-const Activities = ({ activities }) => {
+const Activities = memo(({ activities }) => {
 	return (
 		<div className="mt-5 rounded text-left border">
 			<main className="flex flex-col gap-8 p-5 text-sm">
@@ -30,6 +29,6 @@ const Activities = ({ activities }) => {
 			</main>
 		</div>
 	);
-};
+});
 
 export default Activities;

@@ -74,6 +74,8 @@ const SessionForm = ({ id, type, activities }) => {
         
         const result = await response.json();
 
+        console.log(result);
+
         setFormLoading(false);
     }
 

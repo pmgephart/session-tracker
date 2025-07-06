@@ -14,7 +14,7 @@ import LoadingScreen from "@/components/LoadingScreen";
 
 import Link from "next/link";
 
-const Sessions = ({ sessions, loading }) => {
+const Sessions = memo(({ sessions, loading }) => {
     if(loading) {
         return (
             <LoadingScreen
@@ -22,6 +22,7 @@ const Sessions = ({ sessions, loading }) => {
             />
         );
     }
+
 	return (
 		<div className="st-sessions-list">
 			<div className="pb-5 mx-auto text-center">
@@ -57,6 +58,6 @@ const Sessions = ({ sessions, loading }) => {
 			</div>
 		</div>
 	);
-};
+});
 
 export default Sessions;

@@ -18,7 +18,7 @@ interface FieldProps {
     onChange: () => void
 }
 
-const Field: FC<FieldProps> = ({ name, id, label, value, type, errors, onClick }): JSX.Element => {
+const Field: FC<FieldProps> = ({ name, id, label, value, type, errors, onChange }): JSX.Element => {
     const error = errors.find(error => error.field === name);
 
     return (

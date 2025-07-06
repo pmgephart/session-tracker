@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/util/db';
+import { user } from "@/util/user";
 
 type ResponseData = {
 	session: {}
@@ -9,6 +10,8 @@ export default async function handler (
 	req: NextApiRequest,
 	res: NextApiResponse<ResponseData>
 ) {
+    const userSession = getUserSession(req, res);
+
 	if(req.method === "GET") {
 		try {
 			const id = parseInt(req.query.id);
@@ -123,8 +126,41 @@ export default async function handler (
 	}
 
     if(req.method === "POST") {
-        res.status(200).json({
-            made: "made it"
-        });
+        let errors: string[] = [];
+
+        try {
+            const session = JSON.parse(req.body);
+
+            console.log(session);
+
+            if(session.id) {
+                throw "This session already exists"; 
+            }
+
+            if(date === '') {
+                errors.push({
+                    field: "date",
+                    error: "Date is a required field"
+                });
+            }
+
+            if(name === '') {
+                errors.push({
+                    field: "name",
+                    error: "Name is a required field"
+                });
+            }
+
+            //const result = await prisma.activity.create({ data: activity });
+
+            res.status(200).json({
+                made: "made it"
+            });
+        }
+        catch(error) {
+            res.status(400).json({
+                error
+            });
+        }
     }
 }
