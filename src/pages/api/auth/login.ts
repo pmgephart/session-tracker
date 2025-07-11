@@ -8,14 +8,29 @@ export default async function handler (
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    let errors: string[] = [];
     const session = await getIronSession<UserSessionData>(req, res, userSessionOptions);
 
     if(req.method === "POST") {
         try {
             const { email, password } = req.body;
 
-            if(!email || !password) {
-                throw "Username and password are required fields";
+            if(email === '') {
+                errors.push({
+                    field: "email",
+                    error: "Your email is a required field"
+                });
+            }
+
+            if(password === '') {
+                errors.push({
+                    field: "password",
+                    error: "Your password is a required field"
+                });
+            }
+
+            if(errors.length) {
+                throw errors;
             }
 
             const user = await prisma.user.findUnique({
@@ -36,14 +51,24 @@ export default async function handler (
             });
 
             if(!user) {
-                throw `A user with email "${email}" was not found`;
+                errors.push({
+                    field: "email",
+                    error: `A user with email "${email}" was not found`
+                });
             }
 
             // make sure passwords match
             const passwordsMatch = await comparePasswords(password, user.password);
 
             if(!passwordsMatch) {
-                throw "Invalid username or password";
+                errors.push({
+                    field: "password",
+                    error: "Your password is invalid"
+                });
+            }
+
+            if(errors.length) {
+                throw errors;
             }
 
             delete user.password; // no need for this here
@@ -59,10 +84,9 @@ export default async function handler (
                 user: user
             });
         }
-        catch(error) {
-            console.log(error);
+        catch(errors) {
             res.status(400).json({
-                message: error
+                errors
             });
         }
     }

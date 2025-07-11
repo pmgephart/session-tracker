@@ -49,12 +49,12 @@ export function UserProvider({ children }: { children: ReactNode }) {
         });
 
         const result = await response.json();
-        
+
         if(response.ok) {
             setUser(result.user);
         }
         else {
-            throw new Error(result.message || "User login failed");
+            throw result.errors;
         }
     }
 
