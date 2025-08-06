@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { prisma } from '@/util/db';
-import { user } from "@/util/user";
+import { getUserSession } from "@/util/user";
 
 type ResponseData = {
 	session: {}
@@ -10,7 +10,14 @@ export default async function handler (
 	req: NextApiRequest,
 	res: NextApiResponse<ResponseData>
 ) {
-    const userSession = getUserSession(req, res);
+    const userSession = await getUserSession(req, res);
+
+    if(!userSession) {
+        res.status(400).json({
+            message: "Invalid request",
+            errors: []
+        });
+    }
 
 	if(req.method === "GET") {
 		try {
@@ -131,24 +138,26 @@ export default async function handler (
         try {
             const session = JSON.parse(req.body);
 
-            console.log(session);
-
             if(session.id) {
                 throw "This session already exists"; 
             }
 
-            if(date === '') {
+            if(session.date === '') {
                 errors.push({
                     field: "date",
                     error: "Date is a required field"
                 });
             }
 
-            if(name === '') {
+            if(session.name === '') {
                 errors.push({
                     field: "name",
                     error: "Name is a required field"
                 });
+            }
+
+            if(errors.length) {
+                throw new AggregateError(errors, "The following errors occurred while processing your session");
             }
 
             //const result = await prisma.activity.create({ data: activity });
@@ -158,8 +167,16 @@ export default async function handler (
             });
         }
         catch(error) {
+            if(error instanceof AggregateError) {
+                res.status(400).json({
+                    message: error.message,
+                    errors: error.errors
+                });
+            }
+
             res.status(400).json({
-                error
+                message: "An error occurred while processing your session",
+                errors: []
             });
         }
     }

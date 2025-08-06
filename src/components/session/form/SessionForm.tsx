@@ -12,17 +12,24 @@ import { memo, useState, useEffect, useRef } from "react";
 import { FaPlus, FaSave } from "react-icons/fa";
 import { parseISO, format } from "date-fns";
 import { toast } from "react-toastify";
+
+import { useMessage } from "@/hooks/useMessage";
 import { useSession } from "@/hooks/useSession";
 
 import Form from "next/form";
 import Head from "next/head";
+
 import LoadingScreen from "@/components/LoadingScreen";
+import Message from "@/components/Message";
 import Title from "@/components/Title";
 import WorkoutForm from "@/components/session/form/WorkoutForm";
 
 const SessionForm = ({ id, type, activities }) => {
-    const [formLoading, setFormLoading] = useState(false);
+    const { message, showMessage, clearMessage, hasMessage } = useMessage();
     const { session, dispatch, error, sessionLoading } = useSession(id);
+
+    const [errors, setErrors] = useState([]);
+    const [formLoading, setFormLoading] = useState(false);
 
     const title = type == "update" ? `${session.name} | Session Tracker` : "Create Session | Session Tracker";
     const formTitle = type == "update" ? "Update Session" : "Create Session";
@@ -74,7 +81,13 @@ const SessionForm = ({ id, type, activities }) => {
         
         const result = await response.json();
 
-        console.log(result);
+        if(!response.ok) {
+            if(result.message) {
+                showMessage(result.message, "error");
+            }
+
+            setErrors(result.errors);
+        }
 
         setFormLoading(false);
     }
@@ -153,6 +166,12 @@ const SessionForm = ({ id, type, activities }) => {
                 type="h3"
                 text={formTitle}
             />
+            {hasMessage && ((
+            <Message
+                text={message.text}
+                type={message.type}
+            />
+            ))}
             <div className="rounded text-left border mb-5">
                 <main className="p-5 text-sm">
                     <div className="w-full pb-5">

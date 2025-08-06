@@ -54,7 +54,10 @@ export function UserProvider({ children }: { children: ReactNode }) {
             setUser(result.user);
         }
         else {
-            throw result.errors;
+            throw {
+                message: result.message,
+                errors: result.errors
+            };
         }
     }
 

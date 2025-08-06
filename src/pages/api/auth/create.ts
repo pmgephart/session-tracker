@@ -69,7 +69,7 @@ export default async function handler (
         }
 
         if(errors.length) {
-            throw errors;
+            throw new AggregateError(errors, "An error occurred while attempting to create your account");
         }
 
         const encryptedPassword = await hashPassword(password);
@@ -79,9 +79,16 @@ export default async function handler (
             id: user.id
         });
     }
-    catch(errors) {
+    catch(error) {
+        if(error instanceof AggregateError) {
+            res.status(400).json({
+                message: error.message,
+                errors: error.errors
+            });
+        }
+
         res.status(400).json({
-            errors
+            error
         });
     }
 }

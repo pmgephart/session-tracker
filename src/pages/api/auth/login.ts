@@ -30,7 +30,7 @@ export default async function handler (
             }
 
             if(errors.length) {
-                throw errors;
+                throw new AggregateError(errors);
             }
 
             const user = await prisma.user.findUnique({
@@ -56,19 +56,20 @@ export default async function handler (
                     error: `A user with email "${email}" was not found`
                 });
             }
+            else {
+                // make sure passwords match
+                const passwordsMatch = await comparePasswords(password, user.password);
 
-            // make sure passwords match
-            const passwordsMatch = await comparePasswords(password, user.password);
-
-            if(!passwordsMatch) {
-                errors.push({
-                    field: "password",
-                    error: "Your password is invalid"
-                });
+                if(!passwordsMatch) {
+                    errors.push({
+                        field: "password",
+                        error: "Your password is invalid"
+                    });
+                }
             }
 
             if(errors.length) {
-                throw errors;
+                throw new AggregateError(errors);
             }
 
             delete user.password; // no need for this here
@@ -84,9 +85,16 @@ export default async function handler (
                 user: user
             });
         }
-        catch(errors) {
-            res.status(400).json({
-                errors
+        catch(error) {
+            if(error instanceof AggregateError) {
+                return res.status(400).json({
+                    message: "An error occurred while attempting to log in to your account",
+                    errors: error.errors
+                });
+            }
+
+            return res.status(400).json({
+                error
             });
         }
     }

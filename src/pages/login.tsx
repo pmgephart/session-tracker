@@ -24,11 +24,11 @@ export default function Login() {
     return (
         <>
             <Head>
-                <title>Login | Session Tracker</title>
+                <title>Log In | Session Tracker</title>
             </Head>
             <Title
                 type="h3"
-                text="Login"
+                text="Log In"
             />
             <LoginForm />
         </>

@@ -29,7 +29,7 @@ const Sessions = memo(({ sessions, loading }) => {
 				<div className="text-sm">
 					<Link href="/dashboard/session/create" className="st-link">
                         <FaPlus />
-						<span>add session</span>
+						<span>create session</span>
 					</Link>
 				</div>
 			</div>
